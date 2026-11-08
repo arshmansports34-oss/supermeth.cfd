@@ -146,6 +146,34 @@
       50% { opacity: 0.4; }
     }
 
+    /* ===== MAIN LAYOUT: [LEFT 160x600] [CONTENT] [RIGHT 160x600] ===== */
+    .main-layout {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .content-area {
+      flex: 1;
+      min-width: 0;
+      order: 1;
+    }
+
+    /* ===== 160x600 SIDE ADS ===== */
+    .side-ad {
+      width: 160px;
+      min-width: 160px;
+      height: 600px;
+      background: rgba(16, 28, 32, 0.5);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      position: sticky;
+      top: 90px;
+      z-index: 40;
+    }
+    .side-ad.left { order: 0; }
+    .side-ad.right { order: 2; }
+
     /* ===== MATCH HEADER ===== */
     .match-header {
       background: var(--card-grad);
@@ -457,6 +485,9 @@
     }
 
     /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .side-ad { display: none; }
+    }
     @media (max-width: 650px) {
       body { padding: 0.8rem 0.8rem 100px 0.8rem; }
       .top-header { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0.6rem; top: 8px; }
@@ -494,72 +525,117 @@
     </div>
   </div>
 
-  <!-- ===== MATCH HEADER ===== -->
-  <div class="match-header">
-    <div class="match-team">
-      <img id="team1Logo" src="https://a.espncdn.com/i/teamlogos/default-team-logo-500.png" alt="Team 1">
-      <span class="team-name" id="team1Name">Team 1</span>
-    </div>
-    <div class="match-vs">VS</div>
-    <div class="match-team right">
-      <img id="team2Logo" src="https://a.espncdn.com/i/teamlogos/default-team-logo-500.png" alt="Team 2">
-      <span class="team-name" id="team2Name">Team 2</span>
-    </div>
-    <div class="match-meta">
-      <div class="match-league" id="leagueBadge">
-        <img id="leagueLogo" src="" alt="" style="display:none;">
-        <span id="leagueName">Sports</span>
-      </div>
-    </div>
-  </div>
+  <!-- ===== MAIN LAYOUT: LEFT 160x600 | CONTENT | RIGHT 160x600 ===== -->
+  <div class="main-layout">
 
-  <!-- ===== AD SLOT: TOP 728x90 ===== -->
-  <div class="ad-slot-top" id="topBannerAd">
-    <button class="ad-close-btn" onclick="closeAd('topBannerAd')" title="Close ad">
-      <i class="fas fa-times"></i>
-    </button>
-    <script>
-      atOptions = {
-        'key' : '6786ca601524f56715d5859a0fc7658f',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://czernik.org/22/6786ca601524f56715d5859a0fc7658f"></script>
-  </div>
-
-  <!-- ===== PLAYER ===== -->
-  <div class="player-wrap" id="playerWrap">
-    <div class="player-box" id="playerBox">
-      <iframe id="streamFrame" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="no-referrer" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
-      <div class="player-error" id="playerError">
-        <i class="fas fa-video-slash"></i>
-        <span>No stream link found for this match.<br>Please go back and try another match.</span>
-      </div>
+    <!-- 160x600 LEFT -->
+    <div class="side-ad left" id="sideAdLeft">
+      <button class="ad-close-btn" onclick="closeAd('sideAdLeft')" title="Close ad">
+        <i class="fas fa-times"></i>
+      </button>
+      <script>
+        atOptions = {
+          'key' : '8460d979eaa04e23e84499b613e6aca9',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://czernik.org/22/8460d979eaa04e23e84499b613e6aca9"></script>
     </div>
-    <div class="player-toolbar">
-      <div class="stream-label">
-        <i class="fas fa-broadcast-tower"></i> <span id="streamLabel">Streams</span>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- ===== MATCH HEADER ===== -->
+      <div class="match-header">
+        <div class="match-team">
+          <img id="team1Logo" src="https://a.espncdn.com/i/teamlogos/default-team-logo-500.png" alt="Team 1">
+          <span class="team-name" id="team1Name">Team 1</span>
+        </div>
+        <div class="match-vs">VS</div>
+        <div class="match-team right">
+          <img id="team2Logo" src="https://a.espncdn.com/i/teamlogos/default-team-logo-500.png" alt="Team 2">
+          <span class="team-name" id="team2Name">Team 2</span>
+        </div>
+        <div class="match-meta">
+          <div class="match-league" id="leagueBadge">
+            <img id="leagueLogo" src="" alt="" style="display:none;">
+            <span id="leagueName">Sports</span>
+          </div>
+        </div>
       </div>
-      <div class="stream-btns" id="streamBtns">
-        <!-- stream buttons injected by JS -->
-      </div>
-      <div class="tool-btns">
-        <button class="tool-btn" id="refreshBtn" title="Refresh stream">
-          <i class="fas fa-sync-alt"></i>
+
+      <!-- ===== AD SLOT: TOP 728x90 ===== -->
+      <div class="ad-slot-top" id="topBannerAd">
+        <button class="ad-close-btn" onclick="closeAd('topBannerAd')" title="Close ad">
+          <i class="fas fa-times"></i>
         </button>
-        <button class="tool-btn" id="fullscreenBtn" title="Fullscreen">
-          <i class="fas fa-expand"></i>
-        </button>
+        <script>
+          atOptions = {
+            'key' : '6786ca601524f56715d5859a0fc7658f',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://czernik.org/22/6786ca601524f56715d5859a0fc7658f"></script>
       </div>
-    </div>
-  </div>
 
-  <!-- footer -->
-  <div class="footer-note">
-    <span class="kw">Streameast</span> · Live <span class="kw">CrackStreams</span> cards, <span class="kw">NFL Webcast</span> kickoffs &amp; <span class="kw">NFLBite</span> matchups — NFL, CFB, NBA, MLB, UFC &amp; Soccer hub.
+      <!-- ===== PLAYER ===== -->
+      <div class="player-wrap" id="playerWrap">
+        <div class="player-box" id="playerBox">
+          <!-- SANDBOX REMOVED — streams play normally now -->
+          <iframe id="streamFrame" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          <div class="player-error" id="playerError">
+            <i class="fas fa-video-slash"></i>
+            <span>No stream link found for this match.<br>Please go back and try another match.</span>
+          </div>
+        </div>
+        <div class="player-toolbar">
+          <div class="stream-label">
+            <i class="fas fa-broadcast-tower"></i> <span id="streamLabel">Streams</span>
+          </div>
+          <div class="stream-btns" id="streamBtns">
+            <!-- stream buttons injected by JS -->
+          </div>
+          <div class="tool-btns">
+            <button class="tool-btn" id="refreshBtn" title="Refresh stream">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <button class="tool-btn" id="fullscreenBtn" title="Fullscreen">
+              <i class="fas fa-expand"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="footer-note">
+        <span class="kw">Streameast</span> · Live <span class="kw">CrackStreams</span> cards, <span class="kw">NFL Webcast</span> kickoffs &amp; <span class="kw">NFLBite</span> matchups — NFL, CFB, NBA, MLB, UFC &amp; Soccer hub.
+      </div>
+
+    </div>
+
+    <!-- 160x600 RIGHT -->
+    <div class="side-ad right" id="sideAdRight">
+      <button class="ad-close-btn" onclick="closeAd('sideAdRight')" title="Close ad">
+        <i class="fas fa-times"></i>
+      </button>
+      <script>
+        atOptions = {
+          'key' : '8460d979eaa04e23e84499b613e6aca9',
+          'format' : 'iframe',
+          'height' : 600,
+          'width' : 160,
+          'params' : {}
+        };
+      </script>
+      <script src="https://czernik.org/22/8460d979eaa04e23e84499b613e6aca9"></script>
+    </div>
+
   </div>
 </div>
 
@@ -653,9 +729,8 @@
       currentIdx = idx;
       frame.style.display = '';
       playerError.style.display = 'none';
-      // cache-bust reload
-      const sep = streams[idx].indexOf('?') !== -1 ? '&' : '?';
-      frame.src = streams[idx] + sep + '_se=' + Date.now();
+      // load EXACT API URL — no cache-bust, no extra params
+      frame.src = streams[idx];
       streamLabel.textContent = `Stream ${idx + 1} of ${streams.length}`;
       // update active button
       streamBtns.querySelectorAll('.stream-btn').forEach(function(b, i) {
@@ -715,5 +790,6 @@ hs.src = ('//s10.histats.com/js15_as.js');
 <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?5048377&101" alt="website stats" border="0"></a></noscript>
 <!-- Histats.com  END -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"2bf2897404284a77b31f9236738b10ab","r":1,"spa":2}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"893c78c36412421dbe1b04bbec34990f","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
